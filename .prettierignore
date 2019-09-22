@@ -1,0 +1,4 @@
+dist/*
+node_modules/
+projects/app-base/schematics/*/files/**
+src/app/scss/_iot-theme.scss
