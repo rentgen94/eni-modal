@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { ENI_WINDOW_DATA, EniWindowConfig } from '../eni-window/eni-window.config';
 
 @Component({
   selector: 'app-content-one',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content-one.component.scss']
 })
 export class ContentOneComponent implements OnInit {
+  test = 'test';
 
-  constructor() { }
+  constructor(@Inject(ENI_WINDOW_DATA) public data: any) {}
 
   ngOnInit() {
+    this.test = this.data.text;
   }
-
 }

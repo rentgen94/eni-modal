@@ -1,0 +1,16 @@
+.long {
+  min-height: 2000px;
+}
+
+.full-screen {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+}

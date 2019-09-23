@@ -9,5 +9,5 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ViewC
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EniWindowsContainerComponent {
-  @ViewChild('eniWindowsContainer', { static: false }) eniWindowsContainer: ViewContainerRef;
+  @ViewChild('viewContainerRef', { read: ViewContainerRef, static: true }) viewContainerRef: ViewContainerRef;
 }

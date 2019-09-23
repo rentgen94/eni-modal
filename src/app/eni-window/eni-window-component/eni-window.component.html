@@ -1,2 +1,7 @@
-<h1>Window Header</h1>
-<ng-container #eniWindowBody></ng-container>
+<div class="window-root">
+  <h1>Window Header</h1>
+  <button (click)="onClose()">Click to close!</button>
+  <button (click)="onMinimize()">Click to minimize</button>
+  <button (click)="onMaximize()">Click to maximize</button>
+  <ng-template cdkPortalOutlet></ng-template>
+</div>
