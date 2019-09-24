@@ -1,7 +1,47 @@
-<div class="window-root">
-  <h1>Window Header</h1>
-  <button (click)="onClose()">Click to close!</button>
-  <button (click)="onMinimize()">Click to minimize</button>
-  <button (click)="onMaximize()">Click to maximize</button>
-  <ng-template cdkPortalOutlet></ng-template>
+<div
+  class="window-root mat-elevation-z7"
+  appDraggable
+  [dragEventTarget]="dragEventTarget"
+  [useHost]="true"
+  (mousedown)="moveOnTop()"
+  (touchstart)="moveOnTop()"
+>
+  <div class="window-header" (mousedown)="initDrag($event)" (touchstart)="initDrag($event)">
+    <div class="window-titlebar">
+      <h4 class="window-title" *ngIf="config.data.title">{{ config.data.title }}</h4>
+    </div>
+    <div class="window-controlbar">
+      <a (click)="onMinimize($event)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 20 20">
+          <path d="M4 9h12v2H4V9z" />
+        </svg>
+      </a>
+      <a *ngIf="!isMaximum(); else arrowCollapse" (click)="onMaximize($event)">
+        <svg viewBox="0 0 24 24" width="20px" height="20px">
+          <path
+            d="M10 21v-2H6.41l4.5-4.5-1.41-1.41-4.5 4.5V14H3v7h7zm4.5-10.09l4.5-4.5V10h2V3h-7v2h3.59l-4.5 4.5 1.41 1.41z"
+          />
+        </svg>
+      </a>
+      <ng-template #arrowCollapse>
+        <a (click)="onMaximize($event)">
+          <svg viewBox="0 0 24 24" width="20px" height="20px">
+            <path
+              d="M19.5 3.09L15 7.59V4h-2v7h7V9h-3.59l4.5-4.5-1.41-1.41zM4 13v2h3.59l-4.5 4.5 1.41 1.41 4.5-4.5V20h2v-7H4z"
+            />
+          </svg>
+        </a>
+      </ng-template>
+      <a (click)="onClose($event)">
+        <svg viewBox="0 0 24 24" width="20px" height="20px">
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="window-body" [style.display]="isMinimum() ? 'none' : 'block'">
+    <ng-template cdkPortalOutlet></ng-template>
+  </div>
 </div>

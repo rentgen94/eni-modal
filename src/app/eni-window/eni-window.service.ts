@@ -1,20 +1,12 @@
 /* tslint:disable: variable-name */
-import {
-  Injectable,
-  ViewContainerRef,
-  Inject,
-  TemplateRef,
-  ComponentFactoryResolver,
-  ComponentRef,
-  Injector
-} from '@angular/core';
+import { Injectable, Inject, TemplateRef, ComponentFactoryResolver, ComponentRef, Injector } from '@angular/core';
 import { EniWindowRef } from './eni-window-ref';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType, PortalInjector } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { EniWindowsContainerComponent } from './eni-windows-container/eni-windows-container';
 import { EniWindowComponent } from './eni-window-component/eni-window.component';
-import { EniWindowConfig, ENI_WINDOW_CONTENT, ENI_WINDOW_DATA } from './eni-window.config';
+import { EniWindowConfig, ENI_WINDOW_CONTENT, ENI_WINDOW_CONFIG } from './eni-window.config';
 
 @Injectable({
   providedIn: 'root'
@@ -123,7 +115,7 @@ export class EniWindowService {
 
     const injectionTokens = new WeakMap<any, any>([
       [ENI_WINDOW_CONTENT, windowContent],
-      [ENI_WINDOW_DATA, config.data],
+      [ENI_WINDOW_CONFIG, config],
       [EniWindowRef, windowRef]
     ]);
 

@@ -75,6 +75,6 @@ export class EniWindowRef<T, R = any> {
   }
 
   toPreviousState() {
-    this._state = this._prevState;
+    this.setNewState(this._prevState);
   }
 }

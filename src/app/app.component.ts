@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {}
 
   showModalOne() {
-    this.dialog.open(ContentOneComponent, { id: 'KKS_1', data: { text: 'Hello world!' } });
+    this.dialog.open(ContentOneComponent, { id: 'KKS_1', data: { title: 'Title 1', text: 'Hello world!' } });
   }
 
   showModalTwo() {

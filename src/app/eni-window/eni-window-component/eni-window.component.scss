@@ -1,10 +1,66 @@
 .window-root {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   min-width: 100%;
   min-height: 100%;
-  border: 1px solid black;
+  max-width: 100vw;
+  max-height: 100vh;
+  background-color: #fefefe;
+  border: 1px solid #d7dfe3;
+  border-radius: 4px;
+}
+
+.window-header {
+  display: flex;
+  padding: 0.75rem 1.25rem;
+  background: #fff;
+  user-select: none;
+  align-items: center;
+}
+
+.window-titlebar {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+
+  & .window-title {
+    color: #455a64;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+.window-controlbar {
+  display: flex;
+
+  & a {
+    cursor: pointer;
+    text-decoration: none;
+    padding-left: 7px;
+    font-size: 13px;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.window-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  border-top: 1px solid #d7dfe3;
+  overflow: auto;
+}
+
+.window-root.dragging {
+  cursor: move;
+  user-select: none;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, .2), 0 12px 17px 2px rgba(0, 0, 0, .14), 0 5px 22px 4px rgba(0, 0, 0, .12)
 }
 
 :host(.show) {
@@ -13,12 +69,16 @@
 
 :host(.minimized) {
   position: unset;
+
+  .window-root {
+    max-width: 170px;
+  }
 }
 
 :host(.maximized) {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  left: 0;
-  top: 0;
+  left: 0 !important;
+  top: 0 !important;
 }
