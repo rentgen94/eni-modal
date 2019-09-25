@@ -24,6 +24,8 @@ export class EniWindowConfig<D = any> {
   componentFactoryResolver?: ComponentFactoryResolver;
 }
 
+export const DEFAULT_CONFIG = new EniWindowConfig();
+
 export const enum EniWindowState {
   OPEN,
   MINIMUM,

@@ -17,10 +17,13 @@ import {
   ENI_WINDOW_DATA,
   EniWindowState,
   EniWindowConfig,
-  ENI_WINDOW_CONFIG
+  ENI_WINDOW_CONFIG,
+  EniWindowStateChange
 } from '../eni-window.config';
 import { EniWindowRef } from '../eni-window-ref';
 import { maxZIndex, decreaseZIndex } from 'src/app/common/utils';
+import { ISize } from 'src/app/resizable/models/size';
+import { IResizeEvent } from 'src/app/resizable/models/resize-event';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -49,7 +52,9 @@ export class EniWindowComponent<T, D = any> implements OnInit {
   dragEventTarget: MouseEvent | TouchEvent;
 
   readonly _id: number;
+  private prevSize: ISize;
   private portal: TemplatePortal<T> | ComponentPortal<T>;
+  private rootStyle = {};
 
   constructor(
     private _injector: Injector,
@@ -62,6 +67,7 @@ export class EniWindowComponent<T, D = any> implements OnInit {
   ngOnInit() {
     this.attachSuitableView();
     this.center();
+    this.computeStyle(null);
     this._windowRef.stateChange.subscribe(change => {
       if (change.oldState === EniWindowState.MINIMUM) {
         this.attachSuitableView();
@@ -69,6 +75,7 @@ export class EniWindowComponent<T, D = any> implements OnInit {
       if (change.newState === EniWindowState.MINIMUM) {
         this._portalOutlet.detach();
       }
+      this.computeStyle(change);
     });
   }
 
@@ -192,5 +199,27 @@ export class EniWindowComponent<T, D = any> implements OnInit {
 
   isMinimum() {
     return this._windowRef.state === EniWindowState.MINIMUM;
+  }
+
+  onResizeStop(event: IResizeEvent) {
+    this.prevSize = event.size;
+  }
+
+  computeStyle(change: EniWindowStateChange) {
+    if (change && (change.oldState === EniWindowState.MAXIMUM || change.oldState === EniWindowState.MINIMUM)) {
+      this.rootStyle = {
+        width: this.prevSize.width + 'px',
+        height: this.prevSize.height + 'px'
+      };
+    } else if (change && change.newState === EniWindowState.MINIMUM) {
+      this.rootStyle = {};
+    } else if (change && change.newState === EniWindowState.MAXIMUM) {
+      this.rootStyle = { height: '100%', width: '100%' };
+    } else {
+      this.rootStyle = {
+        minWidth: this.config.minWidth + 'px',
+        minHeight: this.config.minHeight + 'px'
+      };
+    }
   }
 }

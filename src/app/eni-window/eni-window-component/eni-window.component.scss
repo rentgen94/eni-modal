@@ -8,6 +8,12 @@
   background-color: #fefefe;
   border: 1px solid #d7dfe3;
   border-radius: 4px;
+
+  &.dragging {
+    cursor: move;
+    user-select: none;
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, .2), 0 12px 17px 2px rgba(0, 0, 0, .14), 0 5px 22px 4px rgba(0, 0, 0, .12)
+  }
 }
 
 .window-header {
@@ -57,11 +63,6 @@
   overflow: auto;
 }
 
-.window-root.dragging {
-  cursor: move;
-  user-select: none;
-  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, .2), 0 12px 17px 2px rgba(0, 0, 0, .14), 0 5px 22px 4px rgba(0, 0, 0, .12)
-}
 
 :host(.show) {
   position: fixed;
@@ -72,6 +73,10 @@
 
   .window-root {
     max-width: 170px;
+  }
+
+  .window-header {
+    padding: 0.75rem .75rem .5rem;
   }
 }
 

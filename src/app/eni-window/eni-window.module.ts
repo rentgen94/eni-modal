@@ -6,10 +6,11 @@ import { EniWindowsContainerComponent } from './eni-windows-container/eni-window
 import { EniWindowComponent } from './eni-window-component/eni-window.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DraggableModule } from '../draggable';
+import { ResizableModule } from '../resizable/resizable.module';
 
 @NgModule({
   declarations: [EniWindowsContainerComponent, EniWindowComponent],
-  imports: [CommonModule, OverlayModule, PortalModule, DragDropModule, DraggableModule],
+  imports: [CommonModule, OverlayModule, PortalModule, DragDropModule, DraggableModule, ResizableModule],
   entryComponents: [EniWindowsContainerComponent, EniWindowComponent]
 })
 export class EniWindowModule {}

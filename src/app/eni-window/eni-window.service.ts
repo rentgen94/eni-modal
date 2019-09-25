@@ -6,7 +6,7 @@ import { ComponentPortal, ComponentType, PortalInjector } from '@angular/cdk/por
 import { DOCUMENT } from '@angular/common';
 import { EniWindowsContainerComponent } from './eni-windows-container/eni-windows-container';
 import { EniWindowComponent } from './eni-window-component/eni-window.component';
-import { EniWindowConfig, ENI_WINDOW_CONTENT, ENI_WINDOW_CONFIG } from './eni-window.config';
+import { EniWindowConfig, ENI_WINDOW_CONTENT, ENI_WINDOW_CONFIG, DEFAULT_CONFIG } from './eni-window.config';
 
 @Injectable({
   providedIn: 'root'
@@ -27,15 +27,16 @@ export class EniWindowService {
     windowContent: TemplateRef<T> | ComponentType<T> | string,
     windowConfig?: EniWindowConfig<D>
   ): EniWindowRef<T, R> {
+    const config = { ...DEFAULT_CONFIG, ...windowConfig };
     if (this.shouldCreateWindowsContainer()) {
-      this._windowsContainer = this._attachWindowsContainer(windowConfig);
+      this._windowsContainer = this._attachWindowsContainer(config);
     }
 
-    if (windowConfig.id && this.getWindowById(windowConfig.id)) {
-      throw Error(`Dialog with id "${windowConfig.id}" exists already. The dialog id must be unique.`);
+    if (config.id && this.getWindowById(config.id)) {
+      throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
     }
 
-    const windowRef = this._attachWindowContent<T, R>(windowContent, this._windowsContainer.instance, windowConfig);
+    const windowRef = this._attachWindowContent<T, R>(windowContent, this._windowsContainer.instance, config);
 
     this._openWindows.set(windowRef.id, windowRef);
     windowRef.afterClosed().subscribe(() => this._removeWindow(windowRef.id));

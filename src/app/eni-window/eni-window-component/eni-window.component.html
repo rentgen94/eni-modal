@@ -1,10 +1,16 @@
 <div
   class="window-root mat-elevation-z7"
-  appDraggable
+  eniDraggable
   [dragEventTarget]="dragEventTarget"
   [useHost]="true"
   (mousedown)="moveOnTop()"
   (touchstart)="moveOnTop()"
+  [eniResizable]="!isMinimum()"
+  [rzHandles]="'all'"
+  [rzMinWidth]="config.minWidth"
+  [rzMinHeight]="config.minHeight"
+  [ngStyle]="rootStyle"
+  (rzStop)="onResizeStop($event)"
 >
   <div class="window-header" (mousedown)="initDrag($event)" (touchstart)="initDrag($event)">
     <div class="window-titlebar">

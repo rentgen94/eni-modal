@@ -14,7 +14,8 @@ import {
 import { getEvent, isLeftButton } from '../common/utils';
 
 @Directive({
-  selector: '[appDraggable]'
+  // tslint:disable-next-line: directive-selector
+  selector: '[eniDraggable]'
 })
 export class DraggableDirective implements OnInit, OnChanges, OnDestroy {
   @Input() dragEventTarget: MouseEvent | TouchEvent;
